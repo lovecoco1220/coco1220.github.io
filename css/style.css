@@ -1,0 +1,92 @@
+@charset "UTF-8";
+
+.logo {
+    width: 300px;
+    margin-top: -10px;
+}
+.main-nav{ 
+    display: flex;
+    font-size: 1.3rem;
+    margin-top: 40px;
+    list-style: none;
+}
+a {
+    text-decoration: none;
+    color: brown;
+}
+.main-nav li{
+    margin-left: 36px;
+}
+.page-header {
+    display: flex;
+    justify-content: space-between;
+}
+.wrapper {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 2%;
+}
+.bigimg {
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+}
+#home {
+    background-image: url(../img/nanda.jpg);
+    min-height: 100vh;
+    background-blend-mode: luminosity;
+}
+.button {
+    font-size: 1.4rem;
+    background: #eaf6fd;
+    color: #5da9f0;
+    border-radius: 5px;
+    padding: 15px 25px;
+}
+.button:hover {
+    background: #5da9f0;
+    color: lightyellow;
+}
+.home-content {
+    text-align: center;
+    margin-top: 10%;
+}
+.page-title {
+    font-size: 5rem;
+}
+.shape-ex1{
+    font-size: 18px;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+}
+.shape-ex1:after{
+    content: '';
+    width: 0%;
+    height: 1px;
+    background-color: #000;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: all .3s linear;
+}
+.shape-ex1:hover::after{
+    width: 100%;
+}
+#log {
+    background-color: #5da9f0;
+}
+article {
+    width: 75%;
+}
+aside {
+    width: 23%;
+}
+.maincontent {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+.cal {
+    width: 20px;
+}
