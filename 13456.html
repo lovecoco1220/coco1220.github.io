@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        label {
+            display: inline-block;
+            width: 80px;
+        }
+        input, select{
+            width: 120px;
+        }
+    </style>
+</head>
+
+<body>
+    <label>Name</label><input type="text" id="NameBox"><br><br>
+    <label>RollNo</label><input type="text" id="RollBox"><br><br>
+    <label>Section</label><input type="text" id="SecBox"><br><br>
+    <label>Gender</label>
+    <select id="GenBox">
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+    </select>
+    <hr>
+    <button id="Insbtn">INSERT</button>
+    <button id="Selbtn">SELECT</button>
+    <button id="Updbtn">UPDATE</button>
+    <button id="Delbtn">DELETE</button>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        
+        const firebaseConfig = {
+		apiKey: "AIzaSyC1o3YmuiegyCrdNfGFmnXlqwjcmgC6SlU",
+  authDomain: "project-1722265478462884277.firebaseapp.com",
+  projectId: "project-1722265478462884277",
+  storageBucket: "project-1722265478462884277.appspot.com",
+  messagingSenderId: "438837049716",
+  appId: "1:438837049716:web:9100fb70084a78a12b5421"
+  };
+      
+        const app = initializeApp(firebaseConfig);
+
+        import {getDatabase, ref, get, set, child, update, remove}
+        from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+
+        const db = getDatabase(app);
+
+        var nameBox = document.getElementById('NameBox');
+        var rollBox = document.getElementById('RollBox');
+        var secBox = document.getElementById('SecBox');
+        var genBox = document.getElementById('GenBox');
+
+        var insBtn = document.getElementById('Insbtn');
+        var selBtn = document.getElementById('Selbtn');
+        var updBtn = document.getElementById('Updbtn');
+        var delBtn = document.getElementById('Delbtn');
+
+        function InsertData(){
+            set(ref(db, 'TheStudents/' + rollBox.value),{
+                NameOfStd: nameBox.value,
+                RollNo: rollBox.value,
+                Section: secBox.value,
+                Gender: genBox.value
+            })
+            .then(()=>{
+                alert('data stored sucessfully');
+            })
+            .catch((error)=>{
+                alert('unsuccessful, error' + error);
+            });
+        }
+
+        function SelectData(){
+            const dbref = ref(db);
+
+            get(child(dbref, 'TheStudents/' + rollBox.value))
+            .then((snapshot)=>{
+                if(snapshot.exists()){
+                    nameBox.value = snapshot.val().NameOfStd;
+                    secBox.value = snapshot.val().Section;
+                    genBox.value = snapshot.val().Gender;
+                }
+                else{
+                    alert('No Data Found');
+                }
+            })
+            .catch((error)=>{
+                alert('unsuccessful, error' + error);
+            })
+        }
+
+        function UpdateData(){
+            update(ref(db, 'TheStudents/' + rollBox.value),{
+                NameOfStd: nameBox.value,
+                Section: secBox.value,
+                Gender: genBox.value
+            })
+            .then(()=>{
+                alert('data updated sucessfully');
+            })
+            .catch((error)=>{
+                alert('unsuccessful, error' + error);
+            });
+        }
+
+        function DeleteData(){
+            remove(ref(db, 'TheStudents/' + rollBox.value))
+            .then(()=>{
+                alert('data remove sucessfully');
+            })
+            .catch((error)=>{
+                alert('unsuccessful, error' + error);
+            });
+        }
+
+        insBtn.addEventListener('click', InsertData);
+        selBtn.addEventListener('click', SelectData);
+        updBtn.addEventListener('click', UpdateData);
+        delBtn.addEventListener('click', DeleteData);
+      </script>
+</body>
+
+</html>
